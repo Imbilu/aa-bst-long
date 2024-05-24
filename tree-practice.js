@@ -12,14 +12,11 @@ function findMinBST (rootNode) {
   }
   let min = currentNode.val;
 
-  while(currentNode) {
-    if(currentNode.val < min) {
-      min = currentNode.val;
-    }
+  while(currentNode.left) {
     currentNode = currentNode.left;
   }
 
-  return min;
+  return currentNode.val;
 }
 
 function findMaxBST (rootNode) {
@@ -29,8 +26,6 @@ function findMaxBST (rootNode) {
     return;
   }
 
-  let max = current.val;
-
   while(current.right) {
     current = current.right;
   }
@@ -39,11 +34,29 @@ function findMaxBST (rootNode) {
 }
 
 function findMinBT (rootNode) {
-  // Your code here
+  let current = rootNode;
+
+  if(current === null) {
+    return Infinity; // Ensures any actual value is less than initial min
+  }
+
+  let leftMin = findMinBT(current.left);
+  let rightMin = findMinBT(current.right);
+
+  return Math.min(current.val, leftMin, rightMin);
 }
 
 function findMaxBT (rootNode) {
-  // Your code here
+  let current = rootNode;
+
+  if(current === null) {
+    return -Infinity;
+  }
+
+  let leftMax = findMaxBT(current.left);
+  let rightMax = findMaxBT(current.right);
+
+  return Math.max(current.val, leftMax, rightMax);
 }
 
 function getHeight (rootNode) {
