@@ -111,7 +111,7 @@ class TreeNode {
           console.log(current.val);
           q.push(current.left);
           q.push(current.right);
-      }
+        }
       }
     }
 
@@ -131,7 +131,7 @@ class TreeNode {
           s.push(current.right);
         }
       }
-  }
+    }
   }
 
 
