@@ -60,23 +60,72 @@ function findMaxBT (rootNode) {
 }
 
 function getHeight (rootNode) {
-  // Your code here
+  if(rootNode === null) {
+    return -1;
+  }
+
+  let leftHeight = 1 + getHeight(rootNode.left);
+  let rightHeight = 1 + getHeight(rootNode.right);
+
+  return Math.max(leftHeight, rightHeight);
 }
 
 function balancedTree (rootNode) {
-  // Your code here
+  let left = getHeight(rootNode.left);
+  let right = getHeight(rootNode.right);
+
+  return Math.abs(left - right) <= 1;
 }
 
 function countNodes (rootNode) {
-  // Your code here
+  if(rootNode === null) {
+    return 0;
+  }
+
+  let left = countNodes(rootNode.left);
+  let right = countNodes(rootNode.right);
+
+  return left + right + 1;
 }
 
-function getParentNode (rootNode, target) {
-  // Your code here
+function getParentNode (rootNode, target, parent=null) {
+  // let current = rootNode;
+
+  if(!rootNode) {
+    return;
+  }
+
+  if(rootNode.val === target) {
+    return null;
+  }
+
+  if ((rootNode.left && rootNode.left.val === target) || (rootNode.right && rootNode.right.val === target)){
+    return rootNode;
+  }
+
+  let left = getParentNode(rootNode.left, target);
+  if(left) return left;
+
+  return getParentNode(rootNode.right, target);
+
 }
 
 function inOrderPredecessor (rootNode, target) {
-  // Your code here
+
+  if(!rootNode) {
+    return null;
+  }
+
+  if(rootNode.val === target && rootNode.left) {
+    return findMaxBST(rootNode.left);
+  }
+
+  else if(rootNode.val < target) {
+    return inOrderPredecessor(rootNode.right, target);
+  }
+
+  return inOrderPredecessor(rootNode.left, target);
+
 }
 
 function deleteNodeBST(rootNode, target) {
